@@ -7,9 +7,6 @@ import { fetchCardData } from '@/app/lib/data'; // remove fetchLatestInvoices
 import { LatestInvoicesSkeleton, RevenueChartSkeleton } from '@/app/ui/skeletons';
 
 export default async function Page() {
-  // [streaming-latestinvoices](Step 2) remove the data fetch in the dashboard page 
-  // const latestInvoices = await fetchLatestInvoices();
-
   const {
     numberOfInvoices,
     numberOfCustomers,
@@ -37,8 +34,6 @@ export default async function Page() {
           <RevenueChart />
         </Suspense>
         
-        {/* <LatestInvoices latestInvoices={latestInvoices} /> */}
-        {/* [streaming-latestinvoices](Step 2)  use the <RevenueChart> component to let it fetch its own data && add loading skeleton */}
         <Suspense fallback={<LatestInvoicesSkeleton/>}>
         <LatestInvoices />
         </Suspense>
