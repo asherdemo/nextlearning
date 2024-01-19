@@ -3,12 +3,12 @@ import RevenueChart from '@/app/ui/dashboard/revenue-chart';
 import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
 import { lusitana } from '@/app/ui/fonts';
 import { Suspense } from 'react';
-import { fetchLatestInvoices, fetchCardData } from '@/app/lib/data'; // remove fetchRevenue
-import { RevenueChartSkeleton } from '@/app/ui/skeletons';
+import { fetchCardData } from '@/app/lib/data'; // remove fetchLatestInvoices
+import { LatestInvoicesSkeleton, RevenueChartSkeleton } from '@/app/ui/skeletons';
 
 export default async function Page() {
-  
-  const latestInvoices = await fetchLatestInvoices();
+  // [streaming-latestinvoices](Step 2) remove the data fetch in the dashboard page 
+  // const latestInvoices = await fetchLatestInvoices();
 
   const {
     numberOfInvoices,
@@ -36,7 +36,13 @@ export default async function Page() {
         <Suspense fallback={<RevenueChartSkeleton />}>
           <RevenueChart />
         </Suspense>
-        <LatestInvoices latestInvoices={latestInvoices} />
+        
+        {/* <LatestInvoices latestInvoices={latestInvoices} /> */}
+        {/* [streaming-latestinvoices](Step 2)  use the <RevenueChart> component to let it fetch its own data && add loading skeleton */}
+        <Suspense fallback={<LatestInvoicesSkeleton/>}>
+        <LatestInvoices />
+        </Suspense>
+
       </div>
     </main>
   );
