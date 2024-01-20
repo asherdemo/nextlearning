@@ -28,13 +28,11 @@ export async function createInvoice(formData: FormData) {
 
   try {
     await sql`
-      INSERT INTO invoices2 (customer_id, amount, status, date)
+      INSERT INTO invoices (customer_id, amount, status, date)
       VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
     `;
   } catch (error) {
-    return {
-      message: 'Database Error: Failed to Create Invoice.'
-    };
+    throw new Error('Failed to Create Invoice');
   }
 
   revalidatePath('/dashboard/invoices');
@@ -69,6 +67,8 @@ export async function updateInvoice(id: string, formData: FormData) {
 
 
 export async function deleteInvoice(id: string){
+  throw new Error('Failed to Delete Invoice');
+
   try {
     await sql `DELETE  FROM invoices WHERE id = ${id}`;
   } catch (error) {
